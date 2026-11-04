@@ -36,17 +36,38 @@ $board = @(
 #}
 
 $colString = "abcdefgh"
+$scoreRight = 0
+$scoreWrong = 0
+$getAnswer = " "
+$valid = @('R','N','B','Q','K','P','r','n','b','q','k','p','.')
 
-$randomRow = Get-Random -Minimum 1 -Maximum 9
-$randomColNumber = Get-Random -Minimum 0 -Maximum 8
-$randomCol = $colString[$randomColNumber]
+while($getAnswer -ne "quit"){
 
-$correctPiece = $board[$randomRow-1][$randomColNumber]
-$getAnswer = Read-Host "What piece is on $randomCol$randomRow ?"
+    while($newCorrectPiece -eq $lastCorrectPiece){
+        $randomRow = Get-Random -Minimum 1 -Maximum 9
+        $randomColNumber = Get-Random -Minimum 0 -Maximum 8
+        $randomCol = $colString[$randomColNumber]
+        $newCorrectPiece = "$randomCol$randomRow"
+    }
 
-if($getAnswer -ceq $correctPiece){
-    Write-Host "Correct Answer"
-} else {
-    Write-Host "Wrong, it was $correctPiece"
+    $correctPiece = $board[$randomRow-1][$randomColNumber]
+    $getAnswer = Read-Host "What piece is on $randomCol$randomRow ?"
+    
+    if($getAnswer -ceq $correctPiece){
+        Write-Host "Correct Answer"
+        $scoreRight++
+    } elseif($getAnswer -eq "quit"){
+        break
+    } elseif ($getAnswer -cin $valid) {
+        Write-Host "Wrong, it was $correctPiece"
+        $scoreWrong++
+    } else {
+        Write-Host "Please enter a piece letter, a dot, or quit"
+    }
+
+    Write-Host "Correct score: $scoreRight correct and $scoreWrong incorrect"
+    $lastCorrectPiece = "$randomCol$randomRow"
+   
 }
- 
+
+Write-Host "Final score: $scoreRight correct and $scoreWrong incorrect"
