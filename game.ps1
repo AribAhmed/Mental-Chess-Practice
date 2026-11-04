@@ -42,6 +42,11 @@ $getAnswer = " "
 $valid = @('R','N','B','Q','K','P','r','n','b','q','k','p','.')
 
 while($getAnswer -ne "quit"){
+        
+        $randomRow = Get-Random -Minimum 1 -Maximum 9
+        $randomColNumber = Get-Random -Minimum 0 -Maximum 8
+        $randomCol = $colString[$randomColNumber]
+        $newCorrectPiece = "$randomCol$randomRow"
 
     while($newCorrectPiece -eq $lastCorrectPiece){
         $randomRow = Get-Random -Minimum 1 -Maximum 9
