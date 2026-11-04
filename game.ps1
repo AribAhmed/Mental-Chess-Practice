@@ -8,11 +8,11 @@ $columns.Add([char]'f', 6)
 $columns.Add([char]'g', 7)
 $columns.Add([char]'h', 8)
  
-$square = "e4"
+#$square = "e4"
  
-$col = $square[0]
-$colConvert = $columns[$square[0]]
-$row = [int][string]$square[1]
+#$col = $square[0]
+#$colConvert = $columns[$square[0]]
+#$row = [int][string]$square[1]
  
 $board = @(
     @('R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'),
@@ -25,13 +25,28 @@ $board = @(
     @('r', 'n', 'b', 'q', 'k', 'b', 'n', 'r')
 )
  
-Write-Host "The piece on $col$row is" $board[$row-1][$colConvert-1]
+#Write-Host "The piece on $col$row is" $board[$row-1][$colConvert-1]
  
-for($row = 8; $row -ge 1; $row--){
-    for($col = 1; $col -le 8; $col++){
-        Write-Host $board[$row-1][$col-1] -NoNewline
-        Write-Host " " -NoNewline
-    }
-    Write-Host
+#for($row = 8; $row -ge 1; $row--){
+    #for($col = 1; $col -le 8; $col++){
+        #Write-Host $board[$row-1][$col-1] -NoNewline
+       # Write-Host " " -NoNewline
+    #}
+    #Write-Host
+#}
+
+$colString = "abcdefgh"
+
+$randomRow = Get-Random -Minimum 1 -Maximum 9
+$randomColNumber = Get-Random -Minimum 0 -Maximum 8
+$randomCol = $colString[$randomColNumber]
+
+$correctPiece = $board[$randomRow-1][$randomColNumber]
+$getAnswer = Read-Host "What piece is on $randomCol$randomRow ?"
+
+if($getAnswer -ceq $correctPiece){
+    Write-Host "Correct Answer"
+} else {
+    Write-Host "Wrong, it was $correctPiece"
 }
  
